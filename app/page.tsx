@@ -1,14 +1,21 @@
+import { DataTable } from '@/components/table/data-table'
 import Icon from '@/components/icon/icon'
 import { StatCard } from '@/components/stat-card/stat-card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { getTransactions } from '../services/transactions/getTransactions'
+import { columns } from '@/components/table/columns'
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const transactions = await getTransactions()
+
+  /* console.log(JSON.stringify(transactions))
+   */
   return (
     <>
       <header className='top-3 z-20 flex items-center justify-between bg-main-gradient -400 px-[5%] py-5 xl:px-12'>
         <Link href='/' className='cursor-pointer'>
-          <Icon name='icon_logo' color='light-gray' width={79} height={28} />
+          <Icon name='icon_logo' color='light-gray' width={118} height={42} />
         </Link>
         <nav>
           <ul className='flex gap-5 text-light-gray'>
@@ -21,7 +28,7 @@ export default function Dashboard() {
           </ul>
         </nav>
       </header>
-      <main className='container bg-dark-gray pt-10'>
+      <main className='container  pt-10'>
         <section className='flex space-x-4'>
           <div className='min-w-96'>
             <StatCard
@@ -51,6 +58,9 @@ export default function Dashboard() {
               </Button>
             </div>
           </div>
+        </section>
+        <section className='mt-6'>
+          <DataTable data={transactions} columns={columns} />
         </section>
       </main>
     </>
