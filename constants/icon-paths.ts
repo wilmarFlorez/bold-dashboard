@@ -1,4 +1,3 @@
-import { lazy as _lazy } from 'react'
 import dynamic from 'next/dynamic'
 
 interface IconPathsTypes {
@@ -7,4 +6,5 @@ interface IconPathsTypes {
 
 export const allIconsPaths: IconPathsTypes = {
   icon_info: dynamic(() => import('../assets/icons/icon_info.svg')),
+  icon_logo: dynamic(() => import('../assets/icons/icon_logo.svg')),
 }
