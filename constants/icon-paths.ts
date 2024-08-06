@@ -22,4 +22,5 @@ export const allIconsPaths: IconPathsTypes = {
   icon_daviplata: dynamic(() => import('../assets/icons/icon_daviplata.svg')),
   icon_pse: dynamic(() => import('../assets/icons/icon_pse.svg')),
   icon_filter: dynamic(() => import('../assets/icons/icon_filter.svg')),
+  icon_close: dynamic(() => import('../assets/icons/icon_close.svg')),
 }

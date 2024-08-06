@@ -12,3 +12,4 @@ export type AllIconNames =
   | 'icon_daviplata'
   | 'icon_pse'
   | 'icon_filter'
+  | 'icon_close'
