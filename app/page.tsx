@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { getTransactions } from '../services/transactions/getTransactions'
 import { columns } from '@/components/table/columns'
+import { HeaderTable } from '@/components/table/components/header-table'
 
 export default async function Dashboard() {
   const transactions = await getTransactions()
@@ -52,15 +53,18 @@ export default async function Dashboard() {
               <Button className='w-full rounded-2xl'>Junio</Button>
             </div>
             <div className='flex justify-end mt-4'>
-              <Button className='bg-white shadow-sm flex gap-1 font-bold pl-8 text-blue'>
+              <Button className='bg-white shadow-sm flex gap-1 font-bold pl-8 text-blue justify-center'>
                 <span>Filtrar</span>
-                <Icon name='icon_info' width={24} height={24} color='blue' />
+                <Icon name='icon_filter' width={23} height={25} color='blue' />
               </Button>
             </div>
           </div>
         </section>
         <section className='mt-6'>
-          <DataTable data={transactions} columns={columns} />
+          <div>
+            <HeaderTable title='Tus ventas de junio' />
+            <DataTable data={transactions} columns={columns} />
+          </div>
         </section>
       </main>
     </>

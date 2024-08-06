@@ -1,12 +1,41 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { Transaction, PaymentMethod } from '../../services/transactions/types'
+import {
+  Transaction,
+  PaymentMethod,
+  SalesType,
+  TransactionStatus,
+} from '../../services/transactions/types'
+import { AllIconNames } from '../../constants/icon-names'
+import Icon from '../icon/icon'
+import { getPaymentMethodIcon } from './constants'
 
 export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: 'status',
     header: 'Transacción',
+    cell: ({ row }) => {
+      const salesType = row.original.salesType
+      const status = row.original.status
+
+      const label =
+        status === TransactionStatus.SUCCESSFUL
+          ? 'Cobro exitoso'
+          : 'Cobro no realizado'
+
+      const iconName: AllIconNames =
+        salesType === SalesType.TERMINAL ? 'icon_terminal' : 'icon_link'
+
+      return (
+        <div className='flex gap-3 text-blue'>
+          <div className='opacity-80 flex items-center justify-center'>
+            <Icon name={iconName} width={18} height={16} color='blue' />
+          </div>
+          <span>{label}</span>
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'createdAt',
@@ -16,7 +45,6 @@ export const columns: ColumnDef<Transaction>[] = [
     accessorKey: 'paymentMethod',
     header: 'Método de pago',
     cell: ({ row }) => {
-      console.log('ROW', row)
       const paymentMethod = String(row.getValue('paymentMethod'))
       const transactionReference = `****${row.original.transactionReference}`
 
@@ -25,7 +53,19 @@ export const columns: ColumnDef<Transaction>[] = [
           ? paymentMethod
           : transactionReference
 
-      return <div>{paymentMethodLabel}</div>
+      const icon = getPaymentMethodIcon(paymentMethod as PaymentMethod)
+
+      return (
+        <div className='flex gap-3'>
+          <Icon
+            name={icon.name}
+            width={icon.width}
+            height={icon.height}
+            color='red'
+          />
+          {paymentMethodLabel}
+        </div>
+      )
     },
   },
   {
@@ -35,5 +75,21 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: 'amount',
     header: 'Monto',
+    cell: ({ row }) => {
+      const amount = row.original.amount
+      const deduction = row.original.deduction
+
+      return (
+        <div>
+          <p className='text-blue text-sm'>{amount}</p>
+          {deduction && (
+            <div>
+              <p className='text-dark-gray text-sm'>Deducción bold</p>
+              <p className='text-red text-sm'> {`-${deduction}`}</p>
+            </div>
+          )}
+        </div>
+      )
+    },
   },
 ]
