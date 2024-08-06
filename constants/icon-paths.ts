@@ -23,4 +23,11 @@ export const allIconsPaths: IconPathsTypes = {
   icon_pse: dynamic(() => import('../assets/icons/icon_pse.svg')),
   icon_filter: dynamic(() => import('../assets/icons/icon_filter.svg')),
   icon_close: dynamic(() => import('../assets/icons/icon_close.svg')),
+  icon_square_dolar: dynamic(
+    () => import('../assets/icons/icon_square_dolar.svg')
+  ),
+  icon_money_arrow: dynamic(
+    () => import('../assets/icons/icon_money_arrow.svg')
+  ),
+  icon_help: dynamic(() => import('../assets/icons/icon_help.svg')),
 }

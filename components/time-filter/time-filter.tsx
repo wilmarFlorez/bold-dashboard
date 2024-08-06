@@ -27,7 +27,7 @@ export const TimeFilter = ({
   }
 
   return (
-    <div className='flex space-x-2 bg-white justify-between p-2 rounded-md text-blue'>
+    <div className='flex flex-col md:flex-row md:space-x-2 bg-white justify-between p-2 rounded-md text-blue'>
       {options.map((option) => (
         <Button
           key={option.key}

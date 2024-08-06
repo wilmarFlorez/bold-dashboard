@@ -47,13 +47,13 @@ export const FilterDropdown = ({
 
   return (
     <div className='flex justify-end mt-4 relative'>
-      <div className='flex flex-col'>
+      <div className='flex flex-col w-full'>
         <Button
           onClick={handleToggleDropdown}
           className={clsx(
-            'bg-white shadow-sm flex gap-2 font-bold pl-8 text-blue self-end',
+            'bg-white shadow-sm flex gap-2 font-bold pl-8 text-blue md:self-end',
             {
-              'w-60': showDropdown,
+              'w-full md:w-60': showDropdown,
               'rounded-b-none': showDropdown,
             }
           )}
@@ -70,7 +70,7 @@ export const FilterDropdown = ({
         </Button>
         <div
           className={clsx(
-            'flex flex-col bg-white rounded-sm shadow-md p-3 gap-3 absolute top-10 z-50 w-60 right-0',
+            'flex flex-col bg-white rounded-sm shadow-md p-3 gap-3 md:absolute top-10 z-50 md:w-60 right-0',
             {
               hidden: !showDropdown,
               'rounded-t-none': showDropdown,

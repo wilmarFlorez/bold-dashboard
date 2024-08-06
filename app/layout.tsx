@@ -22,17 +22,18 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={montserrat.className}>
-        <header className='top-3 z-20 flex items-center justify-between bg-main-gradient -400 px-[5%] py-5 xl:px-12'>
-          <Link href='/' className='cursor-pointer'>
-            <Icon name='icon_logo' color='light-gray' width={118} height={42} />
+        <header className='top-3 z-20 flex items-center justify-between bg-main-gradient -400  px-[2%] py-2 md:px-[5%] md:py-5 xl:px-12'>
+          <Link href='/' className='cursor-pointer scale-75 md:scale-100'>
+            <Icon name='icon_logo' color='light-gray' width={94} height={33} />
           </Link>
           <nav>
-            <ul className='flex gap-5 text-light-gray'>
-              <li className=''>
+            <ul className='flex gap-5 text-light-gray text-sm md:text-base'>
+              <li>
                 <Link href='/business'>Mi negocio</Link>
               </li>
-              <li>
-                <Link href='/help'>Ayuda ⍰</Link>
+              <li className='flex  items-center gap-2'>
+                <Link href='/help'>Ayuda</Link>
+                <Icon name='icon_help' width={16} height={16} color='red' />
               </li>
             </ul>
           </nav>

@@ -13,3 +13,6 @@ export type AllIconNames =
   | 'icon_pse'
   | 'icon_filter'
   | 'icon_close'
+  | 'icon_square_dolar'
+  | 'icon_money_arrow'
+  | 'icon_help'

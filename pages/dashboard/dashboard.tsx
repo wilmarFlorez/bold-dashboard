@@ -22,12 +22,17 @@ import {
 import useTransactions from '@/hooks/transactions/useTransactions'
 import { FilterDropdown } from '@/components/filter-dropdown/filter-dropdown'
 import { formatMoney } from '@/lib/dineroConfig'
+import { SidePanel } from '@/components/side-panel/side-panel'
+import { Row } from '@tanstack/react-table'
+import { Transaction } from '@/hooks/transactions/types'
 
 export const Dashboard = () => {
   const { transactions, loading } = useTransactions()
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [selectedTime, setSelectedTime] = useState<TimeOption>(TIME_OPTIONS[0])
   const [selectedFilters, setSelectedFilters] = useState<DropdownOption[]>([])
+  const [selectedRow, setSelectedRow] = useState<Row<Transaction>>()
+  const [sidePanelOpen, setSidePanelOpen] = useState(false)
 
   useEffect(() => {
     const savedFilters = localStorage.getItem('selectedFilters')
@@ -56,6 +61,13 @@ export const Dashboard = () => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase())
   }
+
+  const handleSelectRow = (selectedRow: Row<Transaction>) => {
+    setSidePanelOpen(true)
+    setSelectedRow(selectedRow)
+  }
+
+  const handeCloseSidePanel = () => setSidePanelOpen(false)
 
   const filteredTransactionsByTime = filterTransactionsByTime(
     transactions,
@@ -87,8 +99,8 @@ export const Dashboard = () => {
 
   return (
     <>
-      <section className='flex space-x-4'>
-        <div className='min-w-96'>
+      <section className='flex flex-col md:flex-row md:space-x-4'>
+        <div className='mb-4 md:mb-0 min-w-72 w-full md:w-80 lg:w-96'>
           <StatCard
             title={`Total de ventas de ${normalizedTimeLabel}`}
             date={statDate}
@@ -128,9 +140,15 @@ export const Dashboard = () => {
             data={filteredTransactions}
             columns={columns}
             loading={loading}
+            onSelectRow={handleSelectRow}
           />
         </div>
       </section>
+      <SidePanel
+        isOpen={sidePanelOpen}
+        onClose={handeCloseSidePanel}
+        data={selectedRow}
+      />
     </>
   )
 }

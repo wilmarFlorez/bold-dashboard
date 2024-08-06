@@ -6,6 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  Row,
 } from '@tanstack/react-table'
 
 import {
@@ -24,12 +25,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   loading: boolean
+  onSelectRow: (row: Row<TData>) => void
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   loading,
+  onSelectRow,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -73,7 +76,7 @@ export function DataTable<TData, TValue>({
                       '!border-l-light-gray': index % 2 !== 0,
                     }
                   )}
-                  onClick={() => console.log('hello', index)}
+                  onClick={() => onSelectRow(row)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
