@@ -1,5 +1,5 @@
 import { formatDate } from '@/lib/formatDate'
-import { createMoney } from '@/lib/dineroConfig'
+import { createMoney, formatMoney } from '@/lib/dineroConfig'
 import {
   ResponseItems,
   Transaction,
@@ -29,10 +29,8 @@ export const transformTransactionData = (
       transactionReference: item.transactionReference,
       amount: amountMoney,
       deduction: deductionMoney,
-      formatedAmount: `$ ${amountMoney.getAmount()}`,
-      formatedDeduction: deductionMoney
-        ? `$ ${deductionMoney.getAmount()}`
-        : null,
+      formatedAmount: formatMoney(amountMoney),
+      formatedDeduction: deductionMoney ? formatMoney(deductionMoney) : null,
       franchise: item.franchise,
     }
   })
