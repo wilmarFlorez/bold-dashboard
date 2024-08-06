@@ -4,17 +4,17 @@ import React, { useState } from 'react'
 import { Button } from '../ui/button'
 import clsx from 'clsx'
 
-export type Option = {
+export type OptionTime = {
   key: string
   label: string
 }
 
-type Options = Option[]
+type Options = OptionTime[]
 
 interface TimeFilterProps {
   options: Options
-  onSelect?: (selectedOption: Option) => void
-  selectedOption: Option
+  onSelect?: (selectedOption: OptionTime) => void
+  selectedOption: OptionTime
 }
 
 export const TimeFilter = ({
@@ -22,7 +22,7 @@ export const TimeFilter = ({
   onSelect,
   selectedOption,
 }: TimeFilterProps) => {
-  const handleClick = (option: Option) => {
+  const handleClick = (option: OptionTime) => {
     onSelect && onSelect(option)
   }
 

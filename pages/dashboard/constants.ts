@@ -1,13 +1,13 @@
 import { getDateObject } from '@/lib/formatDate'
 
-enum Key {
+export enum OptionKey {
   DAY = 'DAY',
   WEEK = 'WEEK',
   MONTH = 'MONTH',
 }
 
 type TimeOption = {
-  key: Key
+  key: OptionKey
   label: string
 }
 
@@ -16,7 +16,7 @@ type TimeOptions = TimeOption[]
 const currentMonth = getDateObject().month
 
 export const TIME_OPTIONS: TimeOptions = [
-  { key: Key.DAY, label: 'Hoy' },
-  { key: Key.WEEK, label: 'Esta semana' },
-  { key: Key.MONTH, label: currentMonth },
+  { key: OptionKey.DAY, label: 'Hoy' },
+  { key: OptionKey.WEEK, label: 'Esta semana' },
+  { key: OptionKey.MONTH, label: currentMonth },
 ]

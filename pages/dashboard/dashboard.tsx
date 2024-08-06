@@ -5,29 +5,34 @@ import { StatCard } from '@/components/stat-card/stat-card'
 import { columns } from '@/components/table/columns'
 import { HeaderTable } from '@/components/table/components/header-table'
 import { DataTable } from '@/components/table/data-table'
-import { Option, TimeFilter } from '@/components/time-filter/time-filter'
+import { OptionTime, TimeFilter } from '@/components/time-filter/time-filter'
 import { Button } from '@/components/ui/button'
 import { TIME_OPTIONS } from './constants'
 import React, { useState } from 'react'
+import { getStatDate, normalizeTimeLabel } from './helpers'
+import { getCurrentFormatedDate } from '@/lib/formatDate'
 
 interface DasboardProps {
   transactions: any
 }
 
 export const Dashboard = ({ transactions }: DasboardProps) => {
-  const [selectedTime, setSelectedTime] = useState<Option>(TIME_OPTIONS[0])
+  const [selectedTime, setSelectedTime] = useState<OptionTime>(TIME_OPTIONS[0])
 
-  const handleSelectTime = (selectedOption: Option) => {
+  const handleSelectTime = (selectedOption: OptionTime) => {
     setSelectedTime(selectedOption)
   }
+
+  const normalizedTimeLabel = normalizeTimeLabel(selectedTime)
+  const statDate = getStatDate(selectedTime)
 
   return (
     <>
       <section className='flex space-x-4'>
         <div className='min-w-96'>
           <StatCard
-            title='Total de ventas de Junio'
-            date='Junio, 2024'
+            title={`Total de ventas de ${normalizedTimeLabel}`}
+            date={statDate}
             icon={
               <Icon
                 name='icon_info'
@@ -55,7 +60,7 @@ export const Dashboard = ({ transactions }: DasboardProps) => {
       </section>
       <section className='mt-6'>
         <div>
-          <HeaderTable title='Tus ventas de junio' />
+          <HeaderTable title={`Tus ventas de ${normalizedTimeLabel}`} />
           <DataTable data={transactions} columns={columns} />
         </div>
       </section>

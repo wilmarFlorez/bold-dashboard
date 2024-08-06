@@ -50,3 +50,9 @@ export const getDateObject = (): DateObject => {
 
   return { month, year, day }
 }
+
+export const getCurrentFormatedDate = (): string => {
+  const { day, month, year } = getDateObject()
+
+  return `${day} de ${month} ${year}`
+}
