@@ -13,7 +13,7 @@ import useTransactions from '@/hooks/transactions/useTransactions'
 import { FilterDropdown } from '@/components/filter-dropdown/filter-dropdown'
 
 export const Dashboard = () => {
-  const { transactions, loading, error, refetch } = useTransactions()
+  const { transactions, loading } = useTransactions()
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [selectedTime, setSelectedTime] = useState<OptionTime>(TIME_OPTIONS[0])
   const [selectedFilters, setSelectedFilters] = useState<DropdownOption[]>([])
@@ -47,8 +47,8 @@ export const Dashboard = () => {
   }
 
   const filteredTransactions = transactions.filter((transaction) => {
-    const matchesSearchQuery = Object.values(transaction).some((value) =>
-      value.toString().toLowerCase().includes(searchQuery)
+    const matchesSearchQuery = Object.values(transaction).some(
+      (value) => value && value.toString().toLowerCase().includes(searchQuery)
     )
     const matchesFilters =
       selectedFilters.length === 0 ||

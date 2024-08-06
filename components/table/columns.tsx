@@ -5,7 +5,6 @@ import {
   Transaction,
   PaymentMethod,
   SalesType,
-  TransactionStatus,
 } from '../../hooks/transactions/types'
 import { AllIconNames } from '../../constants/icon-names'
 import Icon from '../icon/icon'
@@ -18,12 +17,7 @@ export const columns: ColumnDef<Transaction>[] = [
     header: 'Transacción',
     cell: ({ row }) => {
       const salesType = row.original.salesType
-      const status = row.original.status
-
-      const label =
-        status === TransactionStatus.SUCCESSFUL
-          ? 'Cobro exitoso'
-          : 'Cobro no realizado'
+      const label = row.original.statusLabel
 
       const iconName: AllIconNames =
         salesType === SalesType.TERMINAL ? 'icon_terminal' : 'icon_link'
@@ -82,8 +76,8 @@ export const columns: ColumnDef<Transaction>[] = [
     accessorKey: 'amount',
     header: 'Monto',
     cell: ({ row }) => {
-      const amount = row.original.amount
-      const deduction = row.original.deduction
+      const amount = row.original.formatedAmount
+      const deduction = row.original.formatedDeduction
 
       return (
         <div>

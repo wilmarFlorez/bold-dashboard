@@ -1,3 +1,5 @@
+import Dinero from 'dinero.js'
+
 export enum TransactionStatus {
   SUCCESSFUL = 'SUCCESSFUL',
   REJECTED = 'REJECTED',
@@ -21,7 +23,7 @@ export enum Franchise {
   VISA = 'VISA',
 }
 
-export type Transaction = {
+export type ResponseItem = {
   id: string
   status: TransactionStatus
   paymentMethod: PaymentMethod
@@ -30,9 +32,26 @@ export type Transaction = {
   transactionReference: number
   amount: number
   franchise?: Franchise
-  deduction?: string
+  deduction?: number
 }
 
+export type Transaction = {
+  id: string
+  status: TransactionStatus
+  paymentMethod: PaymentMethod
+  salesType: SalesType
+  createdAt: number
+  transactionReference: number
+  amount: Dinero.Dinero
+  franchise?: Franchise
+  deduction?: Dinero.Dinero | null
+  formatedAmount: string
+  formatedCreatedAt: string
+  formatedDeduction: string | null
+  statusLabel: string
+}
+
+export type ResponseItems = ResponseItem[]
 export interface ApiResponse {
-  data: Transaction[]
+  data: ResponseItems
 }
