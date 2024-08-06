@@ -23,11 +23,13 @@ import clsx from 'clsx'
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  loading: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  loading,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -84,12 +86,12 @@ export function DataTable<TData, TValue>({
                 </TableRow>
               ))
             ) : (
-              <TableRow>
+              <TableRow className='bg-white'>
                 <TableCell
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  {loading ? 'Cagando resultados...' : 'Sin resultados.'}
                 </TableCell>
               </TableRow>
             )}

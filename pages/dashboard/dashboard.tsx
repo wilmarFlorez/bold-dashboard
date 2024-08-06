@@ -104,7 +104,11 @@ export const Dashboard = () => {
             searchQuery={searchQuery}
             onSearch={handleSearch}
           />
-          <DataTable data={filteredTransactions} columns={columns} />
+          <DataTable
+            data={filteredTransactions}
+            columns={columns}
+            loading={loading}
+          />
         </div>
       </section>
     </>
