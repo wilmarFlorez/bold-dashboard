@@ -6,7 +6,7 @@ import {
   PaymentMethod,
   SalesType,
   TransactionStatus,
-} from '../../services/transactions/types'
+} from '../../hooks/transactions/types'
 import { AllIconNames } from '../../constants/icon-names'
 import Icon from '../icon/icon'
 import { getPaymentMethodIcon } from './constants'

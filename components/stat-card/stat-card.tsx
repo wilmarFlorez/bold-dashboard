@@ -42,7 +42,7 @@ export const StatCard = ({ title, value, date, icon }: StatCardProps) => {
         <div className='text-center font-bold text-2xl'>
           <span>{value}</span>
         </div>
-        <div className='text-center'>
+        <div className='text-center min-h-7'>
           <span>{date}</span>
         </div>
       </CardContent>

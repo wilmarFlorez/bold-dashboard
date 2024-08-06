@@ -1,5 +1,5 @@
 import { AllIconNames } from '@/constants/icon-names'
-import { PaymentMethod } from '@/services/transactions/types'
+import { PaymentMethod } from '@/hooks/transactions/types'
 
 type IconObject = {
   name: AllIconNames

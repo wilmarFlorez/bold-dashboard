@@ -10,18 +10,30 @@ import { Button } from '@/components/ui/button'
 import { TIME_OPTIONS } from './constants'
 import React, { useState } from 'react'
 import { getStatDate, normalizeTimeLabel } from './helpers'
-import { getCurrentFormatedDate } from '@/lib/formatDate'
+import useTransactions from '@/hooks/transactions/useTransactions'
 
 interface DasboardProps {
   transactions: any
 }
 
-export const Dashboard = ({ transactions }: DasboardProps) => {
+export const Dashboard = () => {
+  const { transactions, loading, error, refetch } = useTransactions()
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const [selectedTime, setSelectedTime] = useState<OptionTime>(TIME_OPTIONS[0])
 
   const handleSelectTime = (selectedOption: OptionTime) => {
     setSelectedTime(selectedOption)
   }
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value.toLowerCase())
+  }
+
+  const filteredTransactions = transactions.filter((transaction) =>
+    Object.values(transaction).some((value) =>
+      value.toString().toLowerCase().includes(searchQuery)
+    )
+  )
 
   const normalizedTimeLabel = normalizeTimeLabel(selectedTime)
   const statDate = getStatDate(selectedTime)
@@ -60,8 +72,12 @@ export const Dashboard = ({ transactions }: DasboardProps) => {
       </section>
       <section className='mt-6'>
         <div>
-          <HeaderTable title={`Tus ventas de ${normalizedTimeLabel}`} />
-          <DataTable data={transactions} columns={columns} />
+          <HeaderTable
+            title={`Tus ventas de ${normalizedTimeLabel}`}
+            searchQuery={searchQuery}
+            onSearch={handleSearch}
+          />
+          <DataTable data={filteredTransactions} columns={columns} />
         </div>
       </section>
     </>
