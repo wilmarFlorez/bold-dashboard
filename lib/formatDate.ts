@@ -56,3 +56,51 @@ export const getCurrentFormatedDate = (): string => {
 
   return `${day} de ${month} ${year}`
 }
+
+export const getStartOfDay = (): Date => {
+  const now = new Date()
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate())
+}
+
+export const getStartOfWeek = (): Date => {
+  const now = new Date()
+  const day = now.getDay()
+  const diff = now.getDate() - day + (day === 0 ? -6 : 1)
+  return new Date(now.setDate(diff))
+}
+
+export const getStartOfMonth = (): Date => {
+  const now = new Date()
+  return new Date(now.getFullYear(), now.getMonth(), 1)
+}
+
+export const getEndOfDay = (): Date => {
+  const now = new Date()
+  return new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    23,
+    59,
+    59,
+    999
+  )
+}
+
+export const getEndOfWeek = (): Date => {
+  const startOfWeek = getStartOfWeek()
+  return new Date(
+    startOfWeek.getFullYear(),
+    startOfWeek.getMonth(),
+    startOfWeek.getDate() + 6,
+    23,
+    59,
+    59,
+    999
+  )
+}
+
+export const getEndOfMonth = (): Date => {
+  const now = new Date()
+  return new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999)
+}

@@ -11,7 +11,8 @@ export const createMoney = (amount: number): Dinero.Dinero => {
 }
 
 export const formatMoneyNumbersOnly = (money: Dinero.Dinero) => {
-  if (money.getAmount() === 0) return '$ 0'
+  if (money.getAmount() === 0) return '0'
+  
   return money.setLocale('es-CO').toFormat('0,000').replace(',', '.')
 }
 

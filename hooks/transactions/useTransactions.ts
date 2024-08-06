@@ -14,7 +14,6 @@ const useTransactions = () => {
 
       const transactions = transformTransactionData(data.data)
 
-      console.log('Transactions new', transactions.slice(0, 3))
       setTransactions(transactions)
     } catch (err) {
       setError(err.message)

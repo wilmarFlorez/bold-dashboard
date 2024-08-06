@@ -6,7 +6,7 @@ export enum OptionKey {
   MONTH = 'MONTH',
 }
 
-type TimeOption = {
+export type TimeOption = {
   key: OptionKey
   label: string
 }

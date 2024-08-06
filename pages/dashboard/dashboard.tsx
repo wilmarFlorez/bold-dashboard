@@ -6,16 +6,27 @@ import { columns } from '@/components/table/columns'
 import { HeaderTable } from '@/components/table/components/header-table'
 import { DataTable } from '@/components/table/data-table'
 import { OptionTime, TimeFilter } from '@/components/time-filter/time-filter'
-import { DROPDOWN_OPTIONS, DropdownOption, TIME_OPTIONS } from './constants'
+import {
+  DROPDOWN_OPTIONS,
+  DropdownOption,
+  TIME_OPTIONS,
+  TimeOption,
+} from './constants'
 import React, { useEffect, useState } from 'react'
-import { getStatDate, normalizeTimeLabel } from './helpers'
+import {
+  filterTransactionsByTime,
+  getStatDate,
+  normalizeTimeLabel,
+  sumTransactionAmounts,
+} from './helpers'
 import useTransactions from '@/hooks/transactions/useTransactions'
 import { FilterDropdown } from '@/components/filter-dropdown/filter-dropdown'
+import { formatMoney } from '@/lib/dineroConfig'
 
 export const Dashboard = () => {
   const { transactions, loading } = useTransactions()
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const [selectedTime, setSelectedTime] = useState<OptionTime>(TIME_OPTIONS[0])
+  const [selectedTime, setSelectedTime] = useState<TimeOption>(TIME_OPTIONS[0])
   const [selectedFilters, setSelectedFilters] = useState<DropdownOption[]>([])
 
   useEffect(() => {
@@ -31,7 +42,7 @@ export const Dashboard = () => {
   }, [selectedFilters])
 
   const handleSelectTime = (selectedOption: OptionTime) => {
-    setSelectedTime(selectedOption)
+    setSelectedTime(selectedOption as TimeOption)
   }
 
   const handleSelectFilters = (selectedOption: DropdownOption) => {
@@ -46,21 +57,30 @@ export const Dashboard = () => {
     setSearchQuery(event.target.value.toLowerCase())
   }
 
-  const filteredTransactions = transactions.filter((transaction) => {
-    const matchesSearchQuery = Object.values(transaction).some(
-      (value) => value && value.toString().toLowerCase().includes(searchQuery)
-    )
-    const matchesFilters =
-      selectedFilters.length === 0 ||
-      selectedFilters.some((filter) => {
-        if (filter.name === 'option1')
-          return transaction.salesType === 'TERMINAL'
-        if (filter.name === 'option2')
-          return transaction.salesType === 'PAYMENT_LINK'
-        return true
-      })
-    return matchesSearchQuery && matchesFilters
-  })
+  const filteredTransactionsByTime = filterTransactionsByTime(
+    transactions,
+    selectedTime
+  )
+
+  const filteredTransactions = filteredTransactionsByTime.filter(
+    (transaction) => {
+      const matchesSearchQuery = Object.values(transaction).some(
+        (value) => value && value.toString().toLowerCase().includes(searchQuery)
+      )
+      const matchesFilters =
+        selectedFilters.length === 0 ||
+        selectedFilters.some((filter) => {
+          if (filter.name === 'option1')
+            return transaction.salesType === 'TERMINAL'
+          if (filter.name === 'option2')
+            return transaction.salesType === 'PAYMENT_LINK'
+          return true
+        })
+      return matchesSearchQuery && matchesFilters
+    }
+  )
+
+  const total = sumTransactionAmounts(filteredTransactionsByTime)
 
   const normalizedTimeLabel = normalizeTimeLabel(selectedTime)
   const statDate = getStatDate(selectedTime)
@@ -80,7 +100,7 @@ export const Dashboard = () => {
                 color='light-gray'
               />
             }
-            value='$ 394.561.894'
+            value={formatMoney(total)}
           />
         </div>
         <div className='flex-1'>
