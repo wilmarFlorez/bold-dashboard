@@ -10,6 +10,7 @@ import {
 import { AllIconNames } from '../../constants/icon-names'
 import Icon from '../icon/icon'
 import { getPaymentMethodIcon } from './constants'
+import { formatDate } from '@/lib/formatDate'
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -40,6 +41,11 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Fecha y hora',
+    cell: ({ row }) => {
+      const createdAt = row.original.createdAt
+      const formatedDate = formatDate(createdAt)
+      return <p>{formatedDate}</p>
+    },
   },
   {
     accessorKey: 'paymentMethod',

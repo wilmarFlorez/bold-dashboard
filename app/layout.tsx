@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import './globals.css'
+import Link from 'next/link'
+import Icon from '@/components/icon/icon'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -19,7 +21,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={montserrat.className}>{children}</body>
+      <body className={montserrat.className}>
+        <header className='top-3 z-20 flex items-center justify-between bg-main-gradient -400 px-[5%] py-5 xl:px-12'>
+          <Link href='/' className='cursor-pointer'>
+            <Icon name='icon_logo' color='light-gray' width={118} height={42} />
+          </Link>
+          <nav>
+            <ul className='flex gap-5 text-light-gray'>
+              <li className=''>
+                <Link href='/business'>Mi negocio</Link>
+              </li>
+              <li>
+                <Link href='/help'>Ayuda ⍰</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        {children}
+      </body>
     </html>
   )
 }
