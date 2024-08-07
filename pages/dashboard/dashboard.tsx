@@ -11,14 +11,14 @@ import {
   DropdownOption,
   TIME_OPTIONS,
   TimeOption,
-} from './constants'
+} from '../../constants/dashboard'
 import React, { useEffect, useState } from 'react'
 import {
   filterTransactionsByTime,
   getStatDate,
   normalizeTimeLabel,
   sumTransactionAmounts,
-} from './helpers'
+} from '../../helpers/dashboard'
 import useTransactions from '@/hooks/transactions/useTransactions'
 import { FilterDropdown } from '@/components/filter-dropdown/filter-dropdown'
 import { formatMoney } from '@/lib/dineroConfig'

@@ -1,6 +1,6 @@
 import Dinero from 'dinero.js'
 import { OptionTime } from '@/components/time-filter/time-filter'
-import { OptionKey, TimeOption } from './constants'
+
 import {
   getCurrentFormatedDate,
   getDateObject,
@@ -13,6 +13,7 @@ import {
 } from '@/lib/formatDate'
 import { Transaction } from '@/hooks/transactions/types'
 import { createMoney } from '@/lib/dineroConfig'
+import { OptionKey, TimeOption } from '@/constants/dashboard'
 
 export const normalizeTimeLabel = (selectedTime: OptionTime): string => {
   const normalizedTimeLabel =
