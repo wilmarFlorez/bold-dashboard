@@ -95,21 +95,23 @@ export const SidePanel: React.FC<SidePanelProps> = ({
               <div className='border-b-2 border-b-dark-gray pb-3 mb-3'>
                 <div className='flex justify-between mb-2'>
                   <p className='text-dark-gray text-sm'>ID transacción Bold</p>
-                  <p className='text-blue text-sm font-medium'>
+                  <p className='text-blue text-sm font-bold'>
                     {transaction.id}
                   </p>
                 </div>
-                <div className='flex justify-between'>
-                  <p className='text-dark-gray text-sm'>ID transacción Bold</p>
-                  <p className='text-blue text-sm font-medium'>
-                    {transaction.id}
-                  </p>
-                </div>
+                {transaction.deduction && (
+                  <div className='flex justify-between'>
+                    <p className='text-dark-gray text-sm'>Deducción Bold</p>
+                    <p className='text-sm text-red font-bold'>
+                      {transaction.formatedDeduction}
+                    </p>
+                  </div>
+                )}
               </div>
               <div>
                 <div className='flex justify-between mb-2'>
                   <p className='text-dark-gray text-sm'>Método de pago</p>
-                  <div className='flex'>
+                  <div className='flex gap-3 items-center'>
                     <Icon
                       name={iconPaymentMethod.name}
                       width={iconPaymentMethod.width}
@@ -123,7 +125,7 @@ export const SidePanel: React.FC<SidePanelProps> = ({
                 </div>
                 <div className='flex justify-between'>
                   <p className='text-dark-gray text-sm'>Tipo de pago</p>
-                  <div className='flex gap-1'>
+                  <div className='flex gap-3 items-center'>
                     <Icon
                       name={iconPaymentType}
                       width={18}
